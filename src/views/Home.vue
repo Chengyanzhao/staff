@@ -56,8 +56,6 @@ export default {
       if (this.timer) {
         return
       }
-      this.countdown--
-      // 每秒刷新一次时间
       const rate = 1000 // 1000ms
       this.timer = setInterval(() => {
         if (this.countdown === 0) {
