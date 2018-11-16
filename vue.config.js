@@ -3,6 +3,7 @@ const productionGzipExtensions = ['js', 'css']
 const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
+  baseUrl: '/staff/',
   assetsDir: 'static',
   productionSourceMap: false,
   configureWebpack: config => {
