@@ -6,10 +6,22 @@
     <mt-cell title="低音谱表">
       <mt-switch v-model="bass"></mt-switch>
     </mt-cell>
-    <mt-cell title="倒计时" :label="timer.toString()">
-      <mt-range v-model="timer" :min="0" :max="10" :step="1" :bar-height="5">
+    <mt-cell title="音符个数" :label="noteCount.toString()">
+      <mt-range v-model="noteCount" :min="0" :max="8" :step="1">
         <div slot="start">0</div>
+        <div slot="end">8</div>
+      </mt-range>
+    </mt-cell>
+    <mt-cell title="倒计时" :label="timer.toString()">
+      <mt-range v-model="timer" :min="1" :max="10" :step="1">
+        <div slot="start">1</div>
         <div slot="end">10</div>
+      </mt-range>
+    </mt-cell>
+    <mt-cell title="音符名称出现时间" :label="noteNameTime.toString()">
+      <mt-range v-model="noteNameTime" :min="1" :max="timer" :step="1">
+        <div slot="start">1</div>
+        <div slot="end">{{timer}}</div>
       </mt-range>
     </mt-cell>
   </div>
@@ -52,6 +64,22 @@ export default {
       set: function (value) {
         store.setTimer(value)
       }
+    },
+    noteNameTime: {
+      get: function () {
+        return store.state.noteNameTime
+      },
+      set: function (value) {
+        store.setNoteNameTime(value)
+      }
+    },
+    noteCount: {
+      get: function () {
+        return store.state.noteCount
+      },
+      set: function (value) {
+        store.setNoteCount(value)
+      }
     }
   }
 }
@@ -59,7 +87,7 @@ export default {
 
 <style lang="scss" scoped>
 .settings {
-  .mt-range{
+  .mt-range {
     width: 200px;
   }
 }
