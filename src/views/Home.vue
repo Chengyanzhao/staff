@@ -49,22 +49,26 @@ export default {
   },
   methods: {
     render: function (isDefault) {
-      this.state.treble && this.$refs.treble.start(isDefault)
-      this.state.bass && this.$refs.bass.start(isDefault)
+      this.state.treble && this.$refs.treble.start()
+      this.state.bass && this.$refs.bass.start()
     },
     start: function () {
       if (this.timer) {
         return
       }
       const rate = 1000 // 1000ms
-      this.timer = setInterval(() => {
-        if (this.countdown === 0) {
-          this.render()
-          this.countdown = store.state.timer - 1
-        } else {
-          this.countdown--
-        }
-      }, rate)
+      this.timer = setInterval(this.do, rate)
+    },
+    do: function () {
+      const isShowNoteName = this.countdown <= this.state.noteNameTime
+      this.state.treble && this.$refs.treble.setNoteNameShow(isShowNoteName)
+      this.state.bass && this.$refs.bass.setNoteNameShow(isShowNoteName)
+      if (this.countdown === 0) {
+        this.render()
+        this.countdown = store.state.timer - 1
+      } else {
+        this.countdown--
+      }
     },
     stop: function () {
       if (this.timer) {
