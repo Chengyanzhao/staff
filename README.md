@@ -1,26 +1,20 @@
 # staff
 
-## Project setup
-```
-npm install
-```
+**staff** - 乐谱练习工具。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Done
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 2018年11月11日
 
-### Run your tests
-```
-npm run test
-```
+1. 倒计时随机出现音符功能。
+2. 高、低音谱表同时练习。
+3. 可设置倒计时时间。
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 2018年11月22日
+
+1. 增加音符显示功能，且可设置出现时间。
+
+## Future
+
+1. 设置音符个数。
+2. 使用MIDI连接电子乐器。
