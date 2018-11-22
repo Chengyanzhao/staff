@@ -1,6 +1,7 @@
 function resetSettings () {
   const timer = 5
   const noteCount = 1
+  const noteNameTime = 1
   if (localStorage.getItem('treble') === null) {
     localStorage.setItem('treble', true)
   }
@@ -11,13 +12,14 @@ function resetSettings () {
     localStorage.setItem('timer', timer)
   }
   if (localStorage.getItem('noteNameTime') === null) {
-    localStorage.setItem('noteNameTime', timer - 1)
+    localStorage.setItem('noteNameTime', noteNameTime)
   }
   if (localStorage.getItem('noteCount') === null) {
     localStorage.setItem('noteCount', noteCount)
   }
 }
 resetSettings()
+
 export default {
   state: {
     treble: localStorage.getItem('treble') === 'true',
