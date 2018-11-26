@@ -4,12 +4,27 @@
       <h2>{{countdown}}s</h2>
     </div>
     <div class="stave-content">
-      <stave ref="treble" v-if="state.treble"></stave>
-      <stave type="bass" ref="bass" v-if="state.bass"></stave>
+      <stave
+        ref="treble"
+        v-if="state.treble"
+      ></stave>
+      <stave
+        type="bass"
+        ref="bass"
+        v-if="state.bass"
+      ></stave>
     </div>
     <div class="control">
-      <mt-button type="default" @click="start" v-show="!timer">start</mt-button>
-      <mt-button type="default" @click="stop" v-show="timer">stop</mt-button>
+      <mt-button
+        type="default"
+        @click="start"
+        v-show="!timer"
+      >start</mt-button>
+      <mt-button
+        type="default"
+        @click="stop"
+        v-show="timer"
+      >stop</mt-button>
     </div>
   </div>
 </template>
@@ -60,7 +75,7 @@ export default {
       this.timer = setInterval(this.do, rate)
     },
     do: function () {
-      const isShowNoteName = this.countdown <= this.state.noteNameTime
+      const isShowNoteName = this.countdown > 0 && this.countdown <= this.state.noteNameTime
       this.state.treble && this.$refs.treble.setNoteNameShow(isShowNoteName)
       this.state.bass && this.$refs.bass.setNoteNameShow(isShowNoteName)
       if (this.countdown === 0) {
