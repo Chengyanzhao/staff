@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- <router-view /> -->
     <div class="content">
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="Home">
@@ -63,9 +63,9 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 26px;
+    bottom: 40px;
     width: 100%;
-    .mint-tab-container {
+    .mint-tab-container, .mint-tab-container-wrap, .mint-tab-container-item {
       height: 100%;
     }
   }
