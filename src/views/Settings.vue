@@ -7,8 +7,8 @@
       <mt-switch v-model="bass"></mt-switch>
     </mt-cell>
     <mt-cell title="音符个数" :label="noteCount.toString()">
-      <mt-range v-model="noteCount" :min="0" :max="4" :step="1">
-        <div slot="start">0</div>
+      <mt-range v-model="noteCount" :min="1" :max="4" :step="1">
+        <div slot="start">1</div>
         <div slot="end">4</div>
       </mt-range>
     </mt-cell>
