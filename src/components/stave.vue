@@ -4,7 +4,11 @@
       <div class="staff" ref="staff"></div>
     </div>
     <div class="noteName-content">
-      <h4 class="note" v-show="noteNameShow">{{curNote}}</h4>
+      <div class="noteName-wrapper" v-show="noteNameShow">
+        <template v-if="lastNote.length">
+          <span class="note-name" v-for="(note, index) in lastNote" :key="'note'+index">{{note.name}}</span>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -18,18 +22,6 @@ export default {
     type: {
       type: String,
       default: 'treble'
-    },
-    // 音符个数
-    count: {
-      type: Number,
-      default: 1,
-      validator: function (value) {
-        if (value > 4 || value < 0) {
-          return 1
-        } else {
-          return value
-        }
-      }
     }
   },
   data: function () {
@@ -66,7 +58,7 @@ export default {
       },
       curNote: 'Do',
       noteNameShow: false,
-      lastNote: null
+      lastNote: []
     }
   },
   computed: {
@@ -99,25 +91,33 @@ export default {
         return note
       }
     },
-    start: function () {
+    start: function (count = 1) {
       const notes = this.note[this.type]
-      let note = notes[0]
-      if (this.lastNote) {
-        note = this.getRandomNode(notes, [this.lastNote])
+      let renderNotes = []
+      for (let i = 0; i < count; i++) {
+        let note = notes[i]
+        if (this.lastNote[i] && this.lastNote[i].value) {
+          note = this.getRandomNode(notes, [this.lastNote])
+        }
+        this.lastNote[i] = note
+        const noteValue = note.value.split('').join('/')
+        renderNotes.push(noteValue)
       }
-      this.lastNote = note
-      const nodeValue = note.value.split('').join('/')
-      this.curNote = note.name
-      this.render(nodeValue)
+      this.render(renderNotes)
     },
-    render: function (note) {
+    render: function (renderNotes) {
       this.context.clear()
-      var notes = [
-        new VF.StaveNote({ keys: [note], duration: 'q', clef: this.type }),
-        new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type }),
-        new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type }),
-        new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type })
-      ]
+      const restsNote = new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type })
+      const notes = [restsNote, restsNote, restsNote, restsNote]
+      renderNotes.forEach((item, index) => {
+        notes[index] = new VF.StaveNote({ keys: [item], duration: 'q', clef: this.type })
+      })
+      // const notes = [
+      //   new VF.StaveNote({ keys: [note], duration: 'q', clef: this.type }),
+      //   new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type }),
+      //   new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type }),
+      //   new VF.StaveNote({ keys: [this.restPosition], duration: 'qr', clef: this.type })
+      // ]
       this.voice = new VF.Voice({ num_beats: 4, beat_value: 4 })
       this.voice.addTickables(notes)
       new VF.Formatter().joinVoices([this.voice]).format([this.voice], 260)
@@ -135,14 +135,16 @@ export default {
 .stave {
   .stave-content {
     width: 300px;
-    display: inline-block;
-    vertical-align: top;
+    margin: 0 auto;
   }
   .noteName-content {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 28px;
-    width: 30px;
+    margin: 0 auto;
+    width: 300px;
+    line-height: 30px;
+    height: 30px;
+    .note-name{
+      padding: 0 20px;
+    }
   }
 }
 </style>

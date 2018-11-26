@@ -1,30 +1,32 @@
 <template>
   <div class="home">
-    <div class="countdown">
-      <h2>{{countdown}}s</h2>
-    </div>
-    <div class="stave-content">
-      <stave
-        ref="treble"
-        v-if="state.treble"
-      ></stave>
-      <stave
-        type="bass"
-        ref="bass"
-        v-if="state.bass"
-      ></stave>
-    </div>
-    <div class="control">
-      <mt-button
-        type="default"
-        @click="start"
-        v-show="!timer"
-      >start</mt-button>
-      <mt-button
-        type="default"
-        @click="stop"
-        v-show="timer"
-      >stop</mt-button>
+    <div class="wrapper">
+      <div class="countdown">
+        <h2>{{countdown}}s</h2>
+      </div>
+      <div class="stave-content">
+        <stave
+          ref="treble"
+          v-if="state.treble"
+        ></stave>
+        <stave
+          type="bass"
+          ref="bass"
+          v-if="state.bass"
+        ></stave>
+      </div>
+      <div class="control">
+        <mt-button
+          type="default"
+          @click="start"
+          v-show="!timer"
+        >start</mt-button>
+        <mt-button
+          type="default"
+          @click="stop"
+          v-show="timer"
+        >stop</mt-button>
+      </div>
     </div>
   </div>
 </template>
@@ -41,12 +43,6 @@ export default {
   components: { stave },
   data: function () {
     return {
-      highShow: true,
-      lowShow: false,
-      note: {
-        high: ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5'],
-        low: ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3']
-      },
       noteValues: ['/q', '/h', '/w', '/r'], // 四分音符，二分音符，全音符，终止符。
       state: store.state,
       timer: null,
@@ -64,8 +60,8 @@ export default {
   },
   methods: {
     render: function (isDefault) {
-      this.state.treble && this.$refs.treble.start()
-      this.state.bass && this.$refs.bass.start()
+      this.state.treble && this.$refs.treble.start(this.state.noteCount)
+      this.state.bass && this.$refs.bass.start(this.state.noteCount)
     },
     start: function () {
       if (this.timer) {
@@ -104,13 +100,20 @@ export default {
 
 <style lang="scss" scoped>
 .home {
-  text-align: center;
-  .countdown {
-    margin-top: 25%;
-    color: #6a8bad;
-  }
-  .stave-content {
-    margin-top: 50px;
+  position: relative;
+  height: 100%;
+  .wrapper{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    .countdown {
+      color: #6a8bad;
+    }
+    .control{
+      margin-top: 20px;
+    }
   }
 }
 </style>
