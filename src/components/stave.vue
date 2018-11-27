@@ -36,7 +36,7 @@ export default {
           { value: 'F4', name: 'Fa' },
           { value: 'G4', name: 'So' },
           { value: 'A4', name: 'La' },
-          { value: 'B4', name: 'Xi' },
+          { value: 'B4', name: 'Si' },
           { value: 'C5', name: 'Do' },
           { value: 'D5', name: 'Re' },
           { value: 'E5', name: 'Mi' },
