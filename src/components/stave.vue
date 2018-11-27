@@ -97,7 +97,7 @@ export default {
       for (let i = 0; i < count; i++) {
         let note = notes[i]
         if (this.lastNote[i] && this.lastNote[i].value) {
-          note = this.getRandomNode(notes, [this.lastNote])
+          note = this.getRandomNode(notes, [this.lastNote[i]])
         }
         this.lastNote[i] = note
         const noteValue = note.value.split('').join('/')
@@ -142,7 +142,7 @@ export default {
     width: 300px;
     line-height: 30px;
     height: 30px;
-    .note-name{
+    .note-name {
       padding: 0 20px;
     }
   }
